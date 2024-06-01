@@ -21,19 +21,25 @@ Clone this repository or download the files directly:
 ```bash
 git clone https://your-repository-url.git
 cd quake-log-parser
+```
 
+Ensure that the qgames.txt file is in the same directory as your script or update the file path in the script to match the location of your log file.
+
+## Usage
 
 To run the script, execute the following command from the terminal:
 
-bash
+```bash
 Copiar código
 go run main.go
+```
+
 This command will parse the log file and print the game reports to the standard output.
 
-Output Example
+## Output Example
 The script will produce output in the following format for each game parsed:
 
-yaml
+```yaml
 Copiar código
 Game 1:
 Total Kills: 45
@@ -45,7 +51,9 @@ Deaths by means:
   MOD_SHOTGUN: 10
   MOD_RAILGUN: 2
   MOD_GAUNTLET: 1
+```
+
 Each game's output will list the total kills, detailed player statistics, and a count of deaths by each cause.
 
-Contributing
+## Contributing
 Contributions to this project are welcome. Please fork the repository and submit a pull request with your changes or improvements.
