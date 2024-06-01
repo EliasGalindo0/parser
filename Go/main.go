@@ -29,7 +29,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		// Verificar se uma nova partida está começando
+		// Verify if a new game starts
 		if strings.Contains(line, "InitGame:") {
 			currentGame++
 			gameData[currentGame] = &GameData{
@@ -39,7 +39,7 @@ func main() {
 			continue
 		}
 
-		// Expressão regular para capturar eventos de morte
+		// Regex to capture kill events
 		re := regexp.MustCompile(`(\d+:\d+) Kill: (\d+) (\d+) (\d+): (.*) killed (.*) by (.*)`)
 		matches := re.FindStringSubmatch(line)
 
@@ -53,7 +53,7 @@ func main() {
 
 				game.TotalKills++
 
-				// Tratar o caso em que <world> mata um jogador
+				// Handle <world> kills a player
 				if killer == "<world>" {
 					if victim != "<world>" {
 						game.Kills[victim]--
@@ -73,7 +73,7 @@ func main() {
 		return
 	}
 
-	// Imprimir os resultados de cada partida
+	// Print results
 	for gameNumber, data := range gameData {
 		fmt.Printf("Game %d:\n", gameNumber)
 		fmt.Printf("Total Kills: %d\n", data.TotalKills)
