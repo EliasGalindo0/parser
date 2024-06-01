@@ -30,7 +30,6 @@ Ensure that the qgames.txt file is in the same directory as your script or updat
 To run the script, execute the following command from the terminal:
 
 ```bash
-Copiar código
 go run main.go
 ```
 
@@ -40,7 +39,6 @@ This command will parse the log file and print the game reports to the standard 
 The script will produce output in the following format for each game parsed:
 
 ```yaml
-Copiar código
 Game 1:
 Total Kills: 45
 Players:
