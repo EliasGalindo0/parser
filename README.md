@@ -2,6 +2,20 @@
 
 This project contains a Go script that parses Quake game logs to generate detailed reports for each match. The reports include total kills, player rankings, and a breakdown of deaths by cause.
 
+## Aspects
+The key aspects of the code are:
+
+File Processing: The code uses the 
+os.Open() and bufio.NewScanner() functions to read the game data from the "qgames.txt" file line by line.
+
+Regular Expression: The code uses a regular expression to parse each line and extract the relevant information about the kills.
+
+Data Structures: The code uses a GameData struct to store the data for each game, and maps to keep track of the players, kills, and kill means.
+
+Game Reporting: The code generates a report for each game, printing the total kills, the number of kills for each player, and the number of kills by each means.
+
+Overall, this code is designed to process game data from a file and generate detailed reports for each game. The use of data structures and regular expressions makes the code efficient and flexible in handling the game data.
+
 ## Features
 
 - **Match Summaries**: Provides a summary for each match, including total kills and individual player statistics.
