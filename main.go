@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 )
 
-// GameData Struct: This struct represents the data for a single game. It contains the following fields: TotalKills, Players, Kills and KillsByMenas
+// GameData Struct: This struct represents the data for a single game. It contains the following fields: TotalKills, Players, Kills and KillsByMeans.
 type GameData struct {
 	TotalKills   int
 	Players      map[string]bool
@@ -25,7 +26,6 @@ func main() {
 	}
 	defer file.Close()
 
-	// It initializes a games map to store the GameData for each game.
 	scanner := bufio.NewScanner(file)
 	games := make(map[int]*GameData)
 	currentGame := 0
@@ -56,12 +56,23 @@ func main() {
 			game := games[currentGame]
 			game.TotalKills++
 
+			// the core of the kill counter
 			if killer != "<world>" {
 				game.Players[killer] = true
 				game.Kills[killer]++
 			}
+
 			if victim != "<world>" {
 				game.Players[victim] = true
+				// If <world> kills a player, decrement the victim's kills
+				if killer == "<world>" {
+					game.Kills[victim]--
+				}
+
+				/* Alternative version - count and decrement player's kills when they kill themselves
+				if killer == victim {
+					game.Kills[killer]--
+				}*/
 			}
 
 			// Increment death cause
@@ -74,8 +85,16 @@ func main() {
 		return
 	}
 
-	// After processing all the lines, the function prints a report for each game, including the total kills, the number of kills for each player, and the number of kills by each means.
-	for gameNumber, data := range games {
+	// Get a sorted list of game numbers
+	gameNumbers := make([]int, 0, len(games))
+	for gameNumber := range games {
+		gameNumbers = append(gameNumbers, gameNumber)
+	}
+	sort.Ints(gameNumbers)
+
+	// After processing all the lines, the function prints a report for each game in ascending order of game numbers.
+	for _, gameNumber := range gameNumbers {
+		data := games[gameNumber]
 		fmt.Printf("Game %d:\n", gameNumber)
 		fmt.Printf("Total Kills: %d\n", data.TotalKills)
 		fmt.Println("Players:")
